@@ -3,7 +3,7 @@
 
 #table { text-align: center; }
 #year { font-size: 3em; color: rgba(0,15,100, 0.9); padding: 0.4em; text-transform: uppercase; letter-spacing: 0.2em;}
-.months { height: 16em; display: inline-block; background-color: #ddd; margin: .2em;}
+.months { height: 18em; display: inline-block; background-color: #ddd; margin: .2em;}
 .month_name { font-size: 1.2em; letter-spacing: 0.15em; background-color: rgba(200,20,0, 0.9); height: 2em; color: white; }
 .day, .day_name { padding: 0.3em; }
 .day_name {font-weight: bold;}

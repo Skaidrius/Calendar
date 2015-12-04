@@ -1,26 +1,29 @@
 function CreateTable() {
       var tablecontents = "", 
-      days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], 
+      days = ["P", "A", "T", "K", "Pn", "Š", "S"], 
       day_class,
-      months = ["January", 
-    "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      year,
+      months = ["Sausis", 
+    "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
+      temp_year =2016,
       days_in_month = [];
       
-      var temp_year = document.getElementById("year").value;
+    //   get current year from select
+      temp_year = document.getElementById("year").value;
       year=temp_year;
 
-  
+    //   create array with month days count
       for (var i = 0; i < 12; i++) {
         var num_of_days = new Date(year, i+1, 0).getDate();
         days_in_month.push(num_of_days);
       }
-  
+        
+    // fill month  
       for (var i = 0; i < 12; i++) {
         tablecontents += "<table class='months'>";
         tablecontents += "<theader>"+"<tr class='month_name'>"+"<th colspan=7>"+months[i]+ "</th>"+"</tr>"+"</theader>";
         tablecontents += "<tbody>";
 
+        // fill week kays names
         tablecontents += "<tr>"; 
         for (var d = 0; d <=6 ; d++) {	
           day_class = d > 4 ? "<td class='day_name day_weekend'>" : "<td class='day_name'>";
@@ -28,25 +31,50 @@ function CreateTable() {
         }
         tablecontents +="</tr>";
 
+        // fill days in month
         var starting_day = new Date(year, i, 0).getDay();
         var day = 1; 
-        for (var dd = 0; dd <= 6; dd ++) {
+        
+        // set week number
+        for (var weekNum = 0; weekNum <= 6; weekNum ++) {
           tablecontents += "<tr>"; 
-          for (var dw = 0; dw <= 6; dw ++) {
-            day_class = dw > 4 ? "<td class='day_weekend'>" : "<td class='day'>";
-            if (day <= days_in_month[i] && (dd > 0 || dw >= starting_day)) {
+          
+        //   set days during week
+          for (var weekDay = 0; weekDay <= 6; weekDay ++) {
+            day_class = weekDay > 4 ? "<td class='day_weekend'>" : "<td class='day'>";
+            if (day <= days_in_month[i] && (weekNum > 0 || weekDay >= starting_day)) {
               tablecontents += day_class + day + "</td>";
               day++;
             } else {
               tablecontents += "<td></td>";
             }
           }
-        }
         tablecontents +="</tr>";
+        }
+        tablecontents += "</tbody>";
         
-        tablecontents += "<tbody>";
+        // insert holidays
+        tablecontents += "<tfooter>";
+        
+        // if (holidays_data[0].year == year){};
+
+
+
+        // for (var month_i = 0; month_i < holidays_data[year].holidays.length; month_i++) {
+        //     if (month_i == i) {
+        //         holiday = holidays_data[year].holidays[month_i+1].day + " d. "+ holidays_data[year].holidays[month_i+1].description;
+        //         tablecontents += "<tr>";
+        //         tablecontents += "<th colspan=7>Nedarbo dienos:</th>";
+        //         tablecontents += "<td>" + holiday + "</td></tr>";
+        //     }
+        // }
+
+        // tablecontents += "</tr>";
+        tablecontents += "</tfooter>";
         tablecontents += "</table>";
-      }
+    // }
 
 document.getElementById("tablespace").innerHTML = tablecontents;
 }
+
+
