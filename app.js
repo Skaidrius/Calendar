@@ -1,13 +1,17 @@
-function CreateTable() {
-  var tablecontents = "",
-    //   get current year from select
-    year = document.getElementById("year").value,
-    months = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
+    var months = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
     days = ["P", "A", "T", "K", "Pn", "Š", "S"],
     day_class,
     days_in_month = [];
 
-  //  Create and fill calendar
+function CreateNormalCalendar() {
+  
+
+    var tablecontents = "";
+    // //   get current year from select
+    year = document.getElementById("year").value;
+
+  
+    //  Create and fill calendar
   // create array with month days count
   for (var i = 0; i < 12; i++) {
     var num_of_days = new Date(year, i + 1, 0).getDate();
@@ -70,6 +74,66 @@ function CreateTable() {
     tablecontents += "</table>";
   } //end of month cycle
 
+  document.getElementById("calSpace").innerHTML = tablecontents;
 
-  document.getElementById("tablespace").innerHTML = tablecontents;
+}
+
+function CreateWorkCalendar() { //horizontal
+
+    var tablecontents = "";
+    // //   get current year from select
+    year = document.getElementById("year").value;
+
+  
+    //  Create and fill calendar
+  // create array with month days count
+  for (var i = 0; i < 12; i++) {
+    var num_of_days = new Date(year, i + 1, 0).getDate();
+    days_in_month.push(num_of_days);
+  }
+
+  // fill month  
+  for (var i = 0; i < 12; i++) {
+    tablecontents += "<table class='months'>";
+    tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=6>" + months[i] + "</th>" + "</tr>" + "</thead>";
+    tablecontents += "<tbody>";
+
+    // fill week days names
+    for (var n = 0; n <= 6; n++) {
+      tablecontents += "<tr>";
+      day_class = n > 4 ? "<td class='day_name day_weekend'>" : "<td class='day_name'>";
+      tablecontents += day_class + days[n] + "</td>";
+  
+      // fill days in month
+      var starting_day = new Date(year, i, 0).getDay();
+      var curentDay;
+      var day_class;
+
+      // calendar view / place days (empty rows) through week 
+      for (var day = 0; day < days_in_month[i]; day+=7) {
+        var tempCurent = day + n + 1;
+        if (tempCurent <= days_in_month[i] && tempCurent > starting_day){
+          day_class = n > 4 ? "<td class='day_name day_weekend'>" : "<td>";
+          curentDay = day_class +tempCurent + "</td>";
+        } else {
+          curentDay = "<td></td>";
+        }
+        tablecontents += curentDay;
+      }
+      
+    tablecontents += "</tr>";
+
+    }
+    
+    tablecontents += "</tbody>";
+
+    // insert holidays /not working yet!!!
+    tablecontents += "<tfoot>";
+
+    tablecontents += "</tfoot>";
+    tablecontents += "</table>";
+  } //end of month cycle
+
+  document.getElementById("calSpace").innerHTML = tablecontents;
+
 }

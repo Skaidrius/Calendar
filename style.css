@@ -4,16 +4,26 @@
     font-family: "Times New Roman", Georgia, serif;
 }
 
-#table {
+#calendar {
     text-align: center;
 }
 
+
 #year {
-    font-size: 3em;
+    font-size: 2.5em;
+    font-weight: bold;
     color: rgba(0, 15, 100, 0.9);
-    padding: 0.4em;
+    padding: 0.2em;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+    border: none;
+}
+
+.months {
+    height: 18em;
+    display: inline-block;
+    background-color: #ddd;
+    margin: .2em;
 }
 
 .months {
@@ -27,6 +37,14 @@
     font-size: 1.2em;
     letter-spacing: 0.15em;
     background-color: rgba(200, 20, 0, 0.9);
+    height: 2em;
+    color: white;
+}
+
+.month_name_w {
+    font-size: 1.2em;
+    letter-spacing: 0.15em;
+    background-color: rgba(0, 20, 110, 0.9);
     height: 2em;
     color: white;
 }
