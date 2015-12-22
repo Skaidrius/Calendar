@@ -94,14 +94,14 @@ function CreateWorkCalendar() { //horizontal
 
   // fill month  
   for (var i = 0; i < 12; i++) {
-    tablecontents += "<table class='months'>";
+    tablecontents += "<table class='months_w'>";
     tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=6>" + months[i] + "</th>" + "</tr>" + "</thead>";
     tablecontents += "<tbody>";
 
     // fill week days names
     for (var n = 0; n <= 6; n++) {
       tablecontents += "<tr>";
-      day_class = n > 4 ? "<td class='day_name day_weekend'>" : "<td class='day_name'>";
+      day_class = n > 4 ? "<td class='day_name_w day_weekend'>" : "<td class='day_name_w'>";
       tablecontents += day_class + days[n] + "</td>";
   
       // fill days in month
@@ -112,9 +112,10 @@ function CreateWorkCalendar() { //horizontal
       // calendar view / place days (empty rows) through week 
       for (var day = 0; day < days_in_month[i]; day+=7) {
         var tempCurent = day + n + 1;
-        if (tempCurent <= days_in_month[i] && tempCurent > starting_day){
-          day_class = n > 4 ? "<td class='day_name day_weekend'>" : "<td>";
-          curentDay = day_class +tempCurent + "</td>";
+        var starting = day-starting_day+n+1;
+        if (starting <= days_in_month[i] && tempCurent > starting_day){
+          day_class = n > 4 ? "<td class='day_name_w day_weekend day_w day_horizontal'><p class='nums'>" : "<td class='day_w day_horizontal'><p class='nums'>";
+          curentDay = day_class + starting + "</p></td>";
         } else {
           curentDay = "<td></td>";
         }

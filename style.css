@@ -26,8 +26,9 @@
     margin: .2em;
 }
 
-.months {
-    height: 18em;
+.months_w {
+    width: 100%;
+    height: 80%;
     display: inline-block;
     background-color: #ddd;
     margin: .2em;
@@ -42,6 +43,7 @@
 }
 
 .month_name_w {
+    width: 100%;
     font-size: 1.2em;
     letter-spacing: 0.15em;
     background-color: rgba(0, 20, 110, 0.9);
@@ -58,7 +60,24 @@
     font-weight: bold;
 }
 
+.day_name_w {
+    width: 5em;
+}
+
+.nums {
+    position: relative;
+    top: 2px;
+    right: 5px;
+}
+
 .day_weekend {
     color: red;
     font-weight: bold;
+}
+
+.day_horizontal {
+    position: relative;
+    width: 20em;
+    height: 3em;
+    border: 1px solid grey;
 }
