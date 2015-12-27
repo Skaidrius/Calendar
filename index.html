@@ -9,20 +9,22 @@
   <script type="text/javascript" src="data.js"></script>
 </head>
 
-<body onload="CreateNormalCalendar()">
+<body onload="createCalendar()">
   <div id="calendar">
     
-    <select id="year" onchange="CreateNormalCalendar()">
+    <form action="">
+      <input type="radio" name="forma" value="vert" id="vertinput" checked onchange="createNormalCalendar()">Vertikalus
+      <input type="radio" name="forma" value="hor" onchange="createWorkCalendar()">Horizontalus
+    </form>
+
+    <select id="year" onchange="checkCalStatus()">
       <option value="2016">2016</option>
       <option value="2017">2017</option>
       <option value="2018">2018</option>
       <option value="2019">2019</option>
       <option value="2020">2020</option>
     </select>
-    <form action="">
-      <input type="radio" name="forma" value="vert" checked onchange="CreateNormalCalendar()">Vertikalus
-      <input type="radio" name="forma" value="hor" onchange="CreateWorkCalendar()">Horizontalus
-    </form>
+
     <p id="calSpace"></p>
   <div>
 </body>

@@ -3,11 +3,24 @@
     day_class,
     days_in_month = [];
 
-function CreateNormalCalendar() {  // vertical view (vw)
+function createCalendar(){
+  createNormalCalendar();
+}
+
+function checkCalStatus(){
+  var checkedin = document.getElementById("vertinput").checked;
+  if(checkedin == true) {
+    createNormalCalendar();
+  } else {
+    createWorkCalendar();
+  }
+}
+
+function createNormalCalendar() {  // vertical view (vw)
   
     var tablecontents = "";
     // //   get current year from select
-    year = document.getElementById("year").value;
+    var year = document.getElementById("year").value;
 
   
     //  Create and fill calendar
@@ -77,11 +90,11 @@ function CreateNormalCalendar() {  // vertical view (vw)
 
 }
 
-function CreateWorkCalendar() { //horizontal view (hw  )
+function createWorkCalendar() { //horizontal view (hw)  to write day tasks
 
     var tablecontents = "";
     // //   get current year from select
-    year = document.getElementById("year").value;
+    var year = document.getElementById("year").value;
 
   
     //  Create and fill calendar
@@ -135,12 +148,11 @@ function CreateWorkCalendar() { //horizontal view (hw  )
   
   document.getElementById("calSpace").innerHTML = tablecontents;
   
-  function hwheight() {
-    var hwheight = parseInt(screen.height);
-    var elm = document.getElementsByClassName("month_w")[0];
-    elm.style.height=hwheight+"px";
-  }
-  
-  hwheight();
+
+    var hwheight = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+    document.getElementsByClassName("month_w")[0].style.height = hwheight+"px";
+
 
 }
