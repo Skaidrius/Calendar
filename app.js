@@ -3,7 +3,7 @@
     day_class,
     days_in_month = [];
 
-function CreateNormalCalendar() {
+function CreateNormalCalendar() {  // vertical view (vw)
   
     var tablecontents = "";
     // //   get current year from select
@@ -77,7 +77,7 @@ function CreateNormalCalendar() {
 
 }
 
-function CreateWorkCalendar() { //horizontal
+function CreateWorkCalendar() { //horizontal view (hw  )
 
     var tablecontents = "";
     // //   get current year from select
@@ -93,7 +93,7 @@ function CreateWorkCalendar() { //horizontal
 
   // fill month  
   for (var i = 0; i < 12; i++) {
-    tablecontents += "<table cellpadding='0' class='months_w'>";
+    tablecontents += "<table class='months_w'>";
     tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + months[i] + "</th>" + "</tr>" + "</thead>";
     tablecontents += "<tbody>";
 
@@ -109,8 +109,8 @@ function CreateWorkCalendar() { //horizontal
       var day_class;
 
       // calendar view / place days (empty rows) through week 
-      for (var day = 0; day <= days_in_month[i]+4; day+=7) {
-        var tempCurent = day + n + 1;
+      for (var day = 0; day <= days_in_month[i]+4; day+=7) {  // +4 for long months > 5 weeks
+        var tempCurent = day + n + 1; //changing days
         var starting = day-starting_day+n+1;
         if (starting <= days_in_month[i] && tempCurent > starting_day){
           day_class = n > 4 ? "<td class='day_name_w day_weekend day_w day_horizontal'><p class='nums'>" : "<td class='day_w day_horizontal'><p class='nums'>";
@@ -132,7 +132,15 @@ function CreateWorkCalendar() { //horizontal
     tablecontents += "</tfoot>";
     tablecontents += "</table>";
   } //end of month cycle
-
+  
   document.getElementById("calSpace").innerHTML = tablecontents;
+  
+  function hwheight() {
+    var hwheight = parseInt(screen.height);
+    var elm = document.getElementsByClassName("month_w")[0];
+    elm.style.height=hwheight+"px";
+  }
+  
+  hwheight();
 
 }
