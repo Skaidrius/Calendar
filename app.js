@@ -93,7 +93,7 @@ function CreateWorkCalendar() { //horizontal
 
   // fill month  
   for (var i = 0; i < 12; i++) {
-    tablecontents += "<table class='months_w'>";
+    tablecontents += "<table cellpadding='0' class='months_w'>";
     tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + months[i] + "</th>" + "</tr>" + "</thead>";
     tablecontents += "<tbody>";
 

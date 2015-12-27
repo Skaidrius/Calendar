@@ -20,7 +20,7 @@
 }
 
 .months {
-    height: 18em;
+    height: 14em;
     display: inline-block;
     background-color: #ddd;
     margin: .2em;
@@ -53,6 +53,7 @@
 .day,
 .day_name {
     padding: 0.3em;
+    border-collapse: collapse;
 }
 
 .day_name {
@@ -80,4 +81,8 @@
     width: 20em;
     height: 3em;
     border: 1px solid grey;
+}
+
+table {
+  border-collapse: collapse;
 }
