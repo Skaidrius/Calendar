@@ -109,7 +109,7 @@ function CreateWorkCalendar() { //horizontal
       var day_class;
 
       // calendar view / place days (empty rows) through week 
-      for (var day = 0; day <= days_in_month[i]; day+=7) {
+      for (var day = 0; day <= days_in_month[i]+4; day+=7) {
         var tempCurent = day + n + 1;
         var starting = day-starting_day+n+1;
         if (starting <= days_in_month[i] && tempCurent > starting_day){
