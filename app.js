@@ -1,5 +1,6 @@
     var months = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
     days = ["P", "A", "T", "K", "Pn", "Š", "S"],
+    tablecontents = "",
     day_class ;
 
 function createCalendar(){
@@ -16,16 +17,29 @@ function checkCalStatus(){
   }
 }
 
+function checkHolidays(monthVal){ // not working yet
+  tablecontents += "<tfoot>";
+  for (var i = 0; i < holidays_data[0].universal.length; i++){
+    if (monthVal == holidays_data[0].universal[i].month.value){ 
+    // var monthNum = holidays_data[0].universal[monthVal].month;
+    // var dayNum = holidays_data[0].universal[monthVal].day;
+    // var holidayDesc = holidays_data[0].universal[monthVal].descript;
+    //   tablecontents += dayNum + "d. " + holidayDesc;
+    tablecontents += "yra";
+    }
+  }
+   tablecontents += "</tfoot>";
+}
+
 
 function createNormalCalendar() {  // vertical view (vw)
-  
     var tablecontents = "";
 
     //  Create and fill calendar
-
     //   get current year and fill days_in_month array with number of month days that year
   var year = document.getElementById("year").value;
-    var days_in_month = [];
+  var days_in_month = [];
+  
     // create array with month days count
   for (var i = 0; i < 12; i++) {
     var num_of_days = new Date(year, i + 1, 0).getDate();
@@ -56,7 +70,7 @@ function createNormalCalendar() {  // vertical view (vw)
 
       // calendar view / place days (empty rows) during week 
       for (var weekDay = 0; weekDay <= 6; weekDay++) {
-        day_class = weekDay > 4 ? "<td class='day_weekend'>" : "<td class='day'>";
+        day_class = weekDay > 4 ? "<td class='day day_weekend'>" : "<td class='day'>";
         if (day <= days_in_month[i] && (weekNum > 0 || weekDay >= starting_day)) {
           tablecontents += day_class + day + "</td>";
           day++;
@@ -89,7 +103,6 @@ function createNormalCalendar() {  // vertical view (vw)
   } //end of month cycle
 
   document.getElementById("calSpace").innerHTML = tablecontents;
-
 }
 
 function createWorkCalendar() { //horizontal view (hw)  to write day tasks
@@ -104,13 +117,10 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
   for (var i = 0; i < 12; i++) {
     var num_of_days = new Date(year, i + 1, 0).getDate();
     days_in_month.push(num_of_days);
-  }
 
   // fill month  
-  for (var i = 0; i < 12; i++) {
-    
     tablecontents += "<table class='months_w'>";
-    tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + months[i] + "</th>" + "</tr>" + "</thead>";
+    tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + year + " m. " + months[i] + "</th>" + "</tr>" + "</thead>";
     tablecontents += "<tbody>";
 
     // fill week days names
@@ -129,7 +139,7 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
         var tempCurent = day + n + 1; //changing days
         var starting = day-starting_day+n+1;
         if (starting <= days_in_month[i] && tempCurent > starting_day){
-          day_class = n > 4 ? "<td class='day_name_w day_weekend day_w day_horizontal'>" : "<td class='day_w day_horizontal'>";
+          day_class = n > 4 ? "<td class='day_weekend day_w day_horizontal redDay'>" : "<td class='day_w day_horizontal'>";
           curentDay = day_class + "<p class='nums'>" + starting + "</p></td>";
         } else {
           curentDay = "<td></td>";
@@ -143,7 +153,11 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
     tablecontents += "</tbody>";
 
     // insert holidays function here
+    
+    checkHolidays(i);
+    
     tablecontents += "</table>";
+    
 
   } //end of month cycle
 
