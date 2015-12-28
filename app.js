@@ -1,7 +1,6 @@
     var months = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
     days = ["P", "A", "T", "K", "Pn", "Š", "S"],
-    day_class,
-    days_in_month = [];
+    day_class ;
 
 function createCalendar(){
   createNormalCalendar();
@@ -17,15 +16,17 @@ function checkCalStatus(){
   }
 }
 
+
 function createNormalCalendar() {  // vertical view (vw)
   
     var tablecontents = "";
-    // //   get current year from select
-    var year = document.getElementById("year").value;
 
-  
     //  Create and fill calendar
-  // create array with month days count
+
+    //   get current year and fill days_in_month array with number of month days that year
+  var year = document.getElementById("year").value;
+    var days_in_month = [];
+    // create array with month days count
   for (var i = 0; i < 12; i++) {
     var num_of_days = new Date(year, i + 1, 0).getDate();
     days_in_month.push(num_of_days);
@@ -93,27 +94,28 @@ function createNormalCalendar() {  // vertical view (vw)
 
 function createWorkCalendar() { //horizontal view (hw)  to write day tasks
 
-    var tablecontents = "";
-    // //   get current year from select
-    var year = document.getElementById("year").value;
+  var tablecontents = "";
 
-  
     //  Create and fill calendar
-  // create array with month days count
+    //   get current year and fill days_in_month array with number of month days that year
+  var year = document.getElementById("year").value;
+    // create array with month days count
+  var days_in_month = [];
   for (var i = 0; i < 12; i++) {
-    var num_of_days = new Date(year, i , 0).getDate();
+    var num_of_days = new Date(year, i + 1, 0).getDate();
     days_in_month.push(num_of_days);
   }
 
   // fill month  
   for (var i = 0; i < 12; i++) {
+    
     tablecontents += "<table class='months_w'>";
     tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + months[i] + "</th>" + "</tr>" + "</thead>";
     tablecontents += "<tbody>";
 
     // fill week days names
     for (var n = 0; n <= 6; n++) {
-      tablecontents += "<tr>";
+      tablecontents += "<tr class='dayRow_w'>";
       day_class = n > 4 ? "<td class='day_name_w day_weekend'>" : "<td class='day_name_w'>";
       tablecontents += day_class + days[n] + "</td>";
   
@@ -127,8 +129,8 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
         var tempCurent = day + n + 1; //changing days
         var starting = day-starting_day+n+1;
         if (starting <= days_in_month[i] && tempCurent > starting_day){
-          day_class = n > 4 ? "<td class='day_name_w day_weekend day_w day_horizontal'><p class='nums'>" : "<td class='day_w day_horizontal'><p class='nums'>";
-          curentDay = day_class + starting + "</p></td>";
+          day_class = n > 4 ? "<td class='day_name_w day_weekend day_w day_horizontal'>" : "<td class='day_w day_horizontal'>";
+          curentDay = day_class + "<p class='nums'>" + starting + "</p></td>";
         } else {
           curentDay = "<td></td>";
         }
@@ -142,15 +144,9 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
 
     // insert holidays function here
     tablecontents += "</table>";
+
   } //end of month cycle
-  
+
   document.getElementById("calSpace").innerHTML = tablecontents;
   
-
-    var hwheight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
-    document.getElementsByClassName("month_w")[0].style.height = hwheight+"px";
-
-
 }

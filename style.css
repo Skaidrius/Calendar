@@ -6,8 +6,8 @@
 
 #calendar {
     text-align: center;
+    width: 98%;
 }
-
 
 #year {
     font-size: 2.5em;
@@ -27,10 +27,6 @@
     margin: 1em 0.5em;
 }
 
-.months thead{
-    width: 200px;
-}
-
 .months_w {
     background-color: #ddd;
     margin: 5em auto;
@@ -38,31 +34,29 @@
     width: 100em;
 }
 
-
 .month_name {
-    font-size: 1.2em;
+    font-size: 1.5em;
     letter-spacing: 0.15em;
     background-color: rgba(200, 20, 0, 0.9);
     height: 2em;
     color: white;
+    text-transform: uppercase;
 }
 
 .month_name_w {
-    width: 25em;
-    font-size: 1.2em;
-    letter-spacing: 0.15em;
+    font-size: 1.5em;
+    letter-spacing: 0.2em;
     background-color: rgba(0, 20, 110, 0.9);
     height: 2.5em;
+    margin-top: 2em;
     color: white;
+    text-transform: uppercase;
 }
 
 .day,
 .day_name {
     padding: 0.3em;
     border-collapse: collapse;
-}
-
-.day_name {
     font-weight: bold;
 }
 
@@ -74,7 +68,7 @@
 .nums {
     text-align: right;
     padding-right: 10px;
-    height: 7em;
+    height: 9em;
 }
 
 .day_weekend {
@@ -83,9 +77,28 @@
 }
 
 .day_horizontal {
-    position: relative;
     width: 20em;
     height: 3em;
     border: 1px solid grey;
 }
 
+@media print {
+
+    .months_w {
+        page-break-before: always;
+    }
+    .month_name_w {
+        background-color: white;
+        color: black;
+        font-size: 2em;
+    }
+    
+    .day_weekend {
+        background-color: grey;
+    }
+
+    @page {
+        margin: 0; 
+    }
+
+}
