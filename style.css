@@ -20,16 +20,24 @@
 }
 
 .months {
-    height: 14em;
-    display: inline-block;
+    height: 20em;
+    width: 18em;
+    float: left;
     background-color: #ddd;
-    margin: .2em;
+    margin: 1em 0.5em;
+}
+
+.months thead{
+    width: 200px;
 }
 
 .months_w {
     background-color: #ddd;
-    margin: 0 auto;
+    margin: 5em auto;
+    border-collapse: collapse;
+    width: 100em;
 }
+
 
 .month_name {
     font-size: 1.2em;
@@ -81,6 +89,3 @@
     border: 1px solid grey;
 }
 
-table {
-  border-collapse: collapse;
-}

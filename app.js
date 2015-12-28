@@ -9,6 +9,7 @@ function createCalendar(){
 
 function checkCalStatus(){
   var checkedin = document.getElementById("vertinput").checked;
+  
   if(checkedin == true) {
     createNormalCalendar();
   } else {
@@ -100,7 +101,7 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
     //  Create and fill calendar
   // create array with month days count
   for (var i = 0; i < 12; i++) {
-    var num_of_days = new Date(year, i + 1, 0).getDate();
+    var num_of_days = new Date(year, i , 0).getDate();
     days_in_month.push(num_of_days);
   }
 
@@ -139,10 +140,7 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
     
     tablecontents += "</tbody>";
 
-    // insert holidays /not working yet!!!
-    tablecontents += "<tfoot>";
-
-    tablecontents += "</tfoot>";
+    // insert holidays function here
     tablecontents += "</table>";
   } //end of month cycle
   
