@@ -31,26 +31,17 @@ function checkHolidays(year, monthVal, wday){ // not working yet
   for (var i = 0; i < holidays_data[0].universal.length; i++){
     // check holidays and color it red
     dayNum = holidays_data[0].universal[i].day;
-
+    
     if (holidays_data[0].universal[i].month == monthVal+1 && dayNum == wday){
       descript = holidays_data[0].universal[i].descript;
-
-      // check holidays description and write it below month
-      temp = "";
-      temp += "<tfoot>";
-
       holidaysArray.push({
           month: monthVal+1,
           day: wday,
           descript: descript
         });
-
       day_class = "day day_weekend redDay";
-
-        temp += "<tr><th colspan='7'>"+ dayNum + " d. " + descript + "</th></tr>";
-
-      temp += "</tfoot>";
-    } 
+    }
+    
   }
   for (var i = 0; i < holidays_data[0].years.length; i++){ //check years
     // check holidays and color it red
@@ -63,27 +54,28 @@ function checkHolidays(year, monthVal, wday){ // not working yet
       monthUniq = holidays_data[0].years[i].holidays[j].month;
       dayUniq = holidays_data[0].years[i].holidays[j].day;
       descriptionUniq = holidays_data[0].years[i].holidays[j].descript;
-      if (yearUniq == year && monthUniq == monthVal && dayUniq == wday){
+      
+      if (yearUniq == year && monthUniq == monthVal+1 && dayUniq == wday){
         holidaysArray.push({
           month: monthUniq,
           day: dayUniq,
           descript: descriptionUniq
         });
-
         day_class = "day day_weekend redDay";
-        
-        // check holidays description and write it below month
-        temp = "";
-        temp += "<tfoot>";
-        temp += "<tr>";
-        temp += "<th colspan='7'>"+ dayUniq + " d. " + descriptionUniq + "</th>";
-        temp += "</tr>";
-        temp += "</tfoot>";
-      } 
+      }
+      
     }
   }
-  return(holidaysArray);
 }
+
+function createFooter(monthVal){
+  temp = "";
+    for (var y = 0; y < holidaysArray.length; y++){ // check holidays description and write it below month
+      if (monthVal == holidaysArray[y].month-1){
+        temp += "<tr><th colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
+      }
+    }
+  }
 
 function createNormalCalendar() {  // vertical view (vw)
     tablecontents = "";
@@ -139,7 +131,10 @@ function createNormalCalendar() {  // vertical view (vw)
     
     tablecontents += "</tbody>";
 
+    tablecontents += "<tfoot>";
+    createFooter(i);
     tablecontents += temp;  // inserts table footer with holidays 
+    tablecontents += "</tfoot>";
 
     tablecontents += "</table>";
   } //end of month cycle
@@ -198,6 +193,7 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
     
     tablecontents += "</tbody>";
     
+    createFooter(i);
     tablecontents += temp;  // inserts table footer with holidays
 
     tablecontents += "</table>";
