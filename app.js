@@ -2,6 +2,7 @@
     dayNames = ["P", "A", "T", "K", "Pn", "Š", "S"],
     tablecontents,
     holidays_data,
+    holidaysArray = [],
     temp,
     day_class ;
 
@@ -18,23 +19,70 @@ function checkCalStatus(){
   }
 }
 
+function Holiday(month, day, descript){
+  this.month = month;
+  this.day = day;
+  this.descript = descript;
+}
+
 function checkHolidays(year, monthVal, wday){ // not working yet
   var dayNum;
+  var descript;
   for (var i = 0; i < holidays_data[0].universal.length; i++){
     // check holidays and color it red
     dayNum = holidays_data[0].universal[i].day;
+
     if (holidays_data[0].universal[i].month == monthVal+1 && dayNum == wday){
-      var description = holidays_data[0].universal[i].descript;
-      day_class += "day day_weekend redDay";
+      descript = holidays_data[0].universal[i].descript;
+
       // check holidays description and write it below month
       temp = "";
       temp += "<tfoot>";
-      temp += "<tr>";
-      temp += "<th colspan='7'>"+ dayNum + " d. " + description + "</th>";
-      temp += "</tr>";
+
+      holidaysArray.push({
+          month: monthVal+1,
+          day: wday,
+          descript: descript
+        });
+
+      day_class = "day day_weekend redDay";
+
+        temp += "<tr><th colspan='7'>"+ dayNum + " d. " + descript + "</th></tr>";
+
       temp += "</tfoot>";
     } 
   }
+  for (var i = 0; i < holidays_data[0].years.length; i++){ //check years
+    // check holidays and color it red
+    var yearUniq;
+    var monthUniq;
+    var dayUniq;
+    var descriptionUniq;
+    for (var j = 0; j < holidays_data[0].years[i].holidays.length; j++){
+      yearUniq = holidays_data[0].years[i].year;
+      monthUniq = holidays_data[0].years[i].holidays[j].month;
+      dayUniq = holidays_data[0].years[i].holidays[j].day;
+      descriptionUniq = holidays_data[0].years[i].holidays[j].descript;
+      if (yearUniq == year && monthUniq == monthVal && dayUniq == wday){
+        holidaysArray.push({
+          month: monthUniq,
+          day: dayUniq,
+          descript: descriptionUniq
+        });
+
+        day_class = "day day_weekend redDay";
+        
+        // check holidays description and write it below month
+        temp = "";
+        temp += "<tfoot>";
+        temp += "<tr>";
+        temp += "<th colspan='7'>"+ dayUniq + " d. " + descriptionUniq + "</th>";
+        temp += "</tr>";
+        temp += "</tfoot>";
+      } 
+    }
+  }
+  return(holidaysArray);
 }
 
 function createNormalCalendar() {  // vertical view (vw)
@@ -75,7 +123,7 @@ function createNormalCalendar() {  // vertical view (vw)
 
       // calendar view / place days (empty rows) during week 
       for (var weekDay = 0; weekDay <= 6; weekDay++) {
-        day_class = weekDay > 4 ? "day day_weekend" : "day";
+        day_class = weekDay > 4 ? "day day_weekend redDay" : "day";
         if (day <= days_in_month[i] && (weekNum > 0 || weekDay >= starting_day)) {
           // insert holidays function here
           checkHolidays(year, i, day);
@@ -121,21 +169,21 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
 
     // fill week days names
     for (var dayNum = 0; dayNum <= 6; dayNum++) {
-      tablecontents += "<tr class='dayRow_w'>";
-      day_class = dayNum > 4 ? "day_name_w day_weekend" : "day_name_w";
-      tablecontents += "<td class='" + day_class + "'>"+ dayNames[dayNum] + "</td>";
-  
       // fill days in month
       var starting_day = new Date(year, i, 0).getDay();
       var curentDay;
-      var day_class;
+
+      tablecontents += "<tr class='dayRow_w'>";
+      day_class = dayNum > 4 ? "day_name_horizontal day_name day_weekend" : "day_name";
+      tablecontents += "<td class='" + day_class + "'>"+ dayNames[dayNum] + "</td>";
+  
 
       // calendar view / place days (empty rows) through week 
       for (var day = 0; day <= days_in_month[i] + 4; day += 7) {  // +4 for long months > 5 weeks
         var tempCurent = day + dayNum + 1; //for changing days
         var thisDay = tempCurent - starting_day;
         if (thisDay <= days_in_month[i] && tempCurent > starting_day){
-          day_class = dayNum > 4 ? "day_weekend day_w day_horizontal redDay" : "day_w day_horizontal";
+          day_class = dayNum > 4 ? "day day_weekend day_horizontal redDay" : "day day_horizontal";
           // insert holidays function here
           checkHolidays(year, i, thisDay);
           curentDay = "<td class='" + day_class + "'><p class='nums'>" + thisDay + "</p></td>";
