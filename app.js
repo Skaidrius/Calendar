@@ -1,6 +1,8 @@
-    var months = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
-    days = ["P", "A", "T", "K", "Pn", "Š", "S"],
-    tablecontents = "",
+    var monthNames = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
+    dayNames = ["P", "A", "T", "K", "Pn", "Š", "S"],
+    tablecontents,
+    holidays_data,
+    temp,
     day_class ;
 
 function createCalendar(){
@@ -9,31 +11,34 @@ function createCalendar(){
 
 function checkCalStatus(){
   var checkedin = document.getElementById("vertinput").checked;
-  
-  if(checkedin == true) {
+    if(checkedin == true) {
     createNormalCalendar();
   } else {
     createWorkCalendar();
   }
 }
 
-function checkHolidays(monthVal){ // not working yet
-  tablecontents += "<tfoot>";
+function checkHolidays(year, monthVal, wday){ // not working yet
+  var dayNum;
   for (var i = 0; i < holidays_data[0].universal.length; i++){
-    if (monthVal == holidays_data[0].universal[i].month.value){ 
-    // var monthNum = holidays_data[0].universal[monthVal].month;
-    // var dayNum = holidays_data[0].universal[monthVal].day;
-    // var holidayDesc = holidays_data[0].universal[monthVal].descript;
-    //   tablecontents += dayNum + "d. " + holidayDesc;
-    tablecontents += "yra";
-    }
+    // check holidays and color it red
+    dayNum = holidays_data[0].universal[i].day;
+    if (holidays_data[0].universal[i].month == monthVal+1 && dayNum == wday){
+      var description = holidays_data[0].universal[i].descript;
+      day_class += "day day_weekend redDay";
+      // check holidays description and write it below month
+      temp = "";
+      temp += "<tfoot>";
+      temp += "<tr>";
+      temp += "<th colspan='7'>"+ dayNum + " d. " + description + "</th>";
+      temp += "</tr>";
+      temp += "</tfoot>";
+    } 
   }
-   tablecontents += "</tfoot>";
 }
 
-
 function createNormalCalendar() {  // vertical view (vw)
-    var tablecontents = "";
+    tablecontents = "";
 
     //  Create and fill calendar
     //   get current year and fill days_in_month array with number of month days that year
@@ -44,19 +49,19 @@ function createNormalCalendar() {  // vertical view (vw)
   for (var i = 0; i < 12; i++) {
     var num_of_days = new Date(year, i + 1, 0).getDate();
     days_in_month.push(num_of_days);
-  }
 
   // fill month  
-  for (var i = 0; i < 12; i++) {
     tablecontents += "<table class='months'>";
-    tablecontents += "<thead>" + "<tr class='month_name'>" + "<th colspan=7>" + months[i] + "</th>" + "</tr>" + "</thead>";
+    tablecontents += "<thead>";
+    tablecontents += "<tr class='month_name'><th colspan=7>" + monthNames[i] + "</th></tr>";
+    tablecontents + "</thead>";
     tablecontents += "<tbody>";
 
     // fill week days names
     tablecontents += "<tr>";
     for (var d = 0; d <= 6; d++) {
-      day_class = d > 4 ? "<td class='day_name day_weekend'>" : "<td class='day_name'>";
-      tablecontents += day_class + days[d] + "</td>";
+      day_class = d > 4 ? "day_name day_weekend" : "day_name";
+      tablecontents += "<td class='" + day_class + "'>" + dayNames[d] + "</td>";
     }
     tablecontents += "</tr>";
 
@@ -70,9 +75,11 @@ function createNormalCalendar() {  // vertical view (vw)
 
       // calendar view / place days (empty rows) during week 
       for (var weekDay = 0; weekDay <= 6; weekDay++) {
-        day_class = weekDay > 4 ? "<td class='day day_weekend'>" : "<td class='day'>";
+        day_class = weekDay > 4 ? "day day_weekend" : "day";
         if (day <= days_in_month[i] && (weekNum > 0 || weekDay >= starting_day)) {
-          tablecontents += day_class + day + "</td>";
+          // insert holidays function here
+          checkHolidays(year, i, day);
+          tablecontents +=  "<td class='" + day_class + "'>"+ day + "</td>";
           day++;
         }
         else {
@@ -81,33 +88,20 @@ function createNormalCalendar() {  // vertical view (vw)
       }
       tablecontents += "</tr>";
     }
+    
     tablecontents += "</tbody>";
 
-    // insert holidays /not working yet!!!
-    tablecontents += "<tfoot>";
+    tablecontents += temp;  // inserts table footer with holidays 
 
-    // if (holidays_data[0].year == year && holidays_data[0].holidays[i].month == i+1){
-    //     tablecontents += "<tr><th colspan=7>Nedarbo dienos:</th></tr>";
-    //     for (var month_i= 0; month_i < holidays_data[0].holidays.length; month_i++){
-    //         tablecontents += "<tr>";
-    //         tablecontents += "<td colspan=7>" + holidays_data[0].holidays[month_i].description + "</td>";
-    //         tablecontents += "</tr>";
-    //     }
-    //     alert(holidays_data[year_i].year);
-    // if (holidays_data[year_i].year == year && holidays_data[year_i].holidays[month_i] == i){
-    //     tablecontents += "<th colspan=7>Nedarbo dienos:</th>";
-    // }
-    // alert(holidays_data[ye].year);
-    tablecontents += "</tfoot>";
     tablecontents += "</table>";
   } //end of month cycle
 
   document.getElementById("calSpace").innerHTML = tablecontents;
 }
 
-function createWorkCalendar() { //horizontal view (hw)  to write day tasks
+function createWorkCalendar() { //horizontal view (hw) to write day tasks
 
-  var tablecontents = "";
+  tablecontents = "";
 
     //  Create and fill calendar
     //   get current year and fill days_in_month array with number of month days that year
@@ -120,14 +114,16 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
 
   // fill month  
     tablecontents += "<table class='months_w'>";
-    tablecontents += "<thead>" + "<tr class='month_name_w'>" + "<th colspan=7>" + year + " m. " + months[i] + "</th>" + "</tr>" + "</thead>";
+    tablecontents += "<thead>";
+    tablecontents += "<tr class='month_name_w'><th colspan=7>" + year + " m. " + monthNames[i] + "</th></tr>";
+    tablecontents += "</thead>";
     tablecontents += "<tbody>";
 
     // fill week days names
-    for (var n = 0; n <= 6; n++) {
+    for (var dayNum = 0; dayNum <= 6; dayNum++) {
       tablecontents += "<tr class='dayRow_w'>";
-      day_class = n > 4 ? "<td class='day_name_w day_weekend'>" : "<td class='day_name_w'>";
-      tablecontents += day_class + days[n] + "</td>";
+      day_class = dayNum > 4 ? "day_name_w day_weekend" : "day_name_w";
+      tablecontents += "<td class='" + day_class + "'>"+ dayNames[dayNum] + "</td>";
   
       // fill days in month
       var starting_day = new Date(year, i, 0).getDay();
@@ -135,12 +131,14 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
       var day_class;
 
       // calendar view / place days (empty rows) through week 
-      for (var day = 0; day <= days_in_month[i]+4; day+=7) {  // +4 for long months > 5 weeks
-        var tempCurent = day + n + 1; //changing days
-        var starting = day-starting_day+n+1;
-        if (starting <= days_in_month[i] && tempCurent > starting_day){
-          day_class = n > 4 ? "<td class='day_weekend day_w day_horizontal redDay'>" : "<td class='day_w day_horizontal'>";
-          curentDay = day_class + "<p class='nums'>" + starting + "</p></td>";
+      for (var day = 0; day <= days_in_month[i] + 4; day += 7) {  // +4 for long months > 5 weeks
+        var tempCurent = day + dayNum + 1; //for changing days
+        var thisDay = tempCurent - starting_day;
+        if (thisDay <= days_in_month[i] && tempCurent > starting_day){
+          day_class = dayNum > 4 ? "day_weekend day_w day_horizontal redDay" : "day_w day_horizontal";
+          // insert holidays function here
+          checkHolidays(year, i, thisDay);
+          curentDay = "<td class='" + day_class + "'><p class='nums'>" + thisDay + "</p></td>";
         } else {
           curentDay = "<td></td>";
         }
@@ -151,11 +149,9 @@ function createWorkCalendar() { //horizontal view (hw)  to write day tasks
     }
     
     tablecontents += "</tbody>";
+    
+    tablecontents += temp;  // inserts table footer with holidays
 
-    // insert holidays function here
-    
-    checkHolidays(i);
-    
     tablecontents += "</table>";
     
 
