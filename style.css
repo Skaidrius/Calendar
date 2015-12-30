@@ -30,7 +30,7 @@
     float: left;
     background-color: #ddd;
     margin: 1em 0.5em;
-        border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 .months_w {
@@ -131,7 +131,7 @@
     
     .nums{
         font-size: 1.2em;
-        height: 7em;
+        height: 5em;
     }
 
 }

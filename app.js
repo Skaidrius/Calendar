@@ -19,12 +19,6 @@ function checkCalStatus(){
   }
 }
 
-function Holiday(month, day, descript){
-  this.month = month;
-  this.day = day;
-  this.descript = descript;
-}
-
 function checkHolidays(year, monthVal, wday){ // not working yet
   var dayNum;
   var descript;
@@ -41,7 +35,6 @@ function checkHolidays(year, monthVal, wday){ // not working yet
         });
       day_class = "day day_weekend redDay";
     }
-    
   }
   for (var i = 0; i < holidays_data[0].years.length; i++){ //check years
     // check holidays and color it red
@@ -63,21 +56,28 @@ function checkHolidays(year, monthVal, wday){ // not working yet
         });
         day_class = "day day_weekend redDay";
       }
-      
     }
   }
 }
 
+function clearHolidays(){
+  holidaysArray.length = 0;
+}
+
 function createFooter(monthVal){
   temp = "";
+    temp += "<tfoot>";
     for (var y = 0; y < holidaysArray.length; y++){ // check holidays description and write it below month
       if (monthVal == holidaysArray[y].month-1){
         temp += "<tr><th colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
       }
     }
+    temp += "</tfoot>";
   }
 
 function createNormalCalendar() {  // vertical view (vw)
+    
+    clearHolidays();
     tablecontents = "";
 
     //  Create and fill calendar
@@ -131,10 +131,9 @@ function createNormalCalendar() {  // vertical view (vw)
     
     tablecontents += "</tbody>";
 
-    tablecontents += "<tfoot>";
     createFooter(i);
+    
     tablecontents += temp;  // inserts table footer with holidays 
-    tablecontents += "</tfoot>";
 
     tablecontents += "</table>";
   } //end of month cycle
@@ -143,6 +142,7 @@ function createNormalCalendar() {  // vertical view (vw)
 }
 
 function createWorkCalendar() { //horizontal view (hw) to write day tasks
+  clearHolidays();
 
   tablecontents = "";
 
@@ -171,7 +171,6 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
       tablecontents += "<tr class='dayRow_w'>";
       day_class = dayNum > 4 ? "day_name_horizontal day_name day_weekend" : "day_name";
       tablecontents += "<td class='" + day_class + "'>"+ dayNames[dayNum] + "</td>";
-  
 
       // calendar view / place days (empty rows) through week 
       for (var day = 0; day <= days_in_month[i] + 4; day += 7) {  // +4 for long months > 5 weeks
@@ -197,7 +196,6 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
     tablecontents += temp;  // inserts table footer with holidays
 
     tablecontents += "</table>";
-    
 
   } //end of month cycle
 
