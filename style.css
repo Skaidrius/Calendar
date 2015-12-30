@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: "Times New Roman", Georgia, serif;
+    overflow-x: none;
 }
 
 #calendar {
@@ -9,9 +10,18 @@
     width: 100%;
 }
 
-#calendar form {
-    font-size: 2em;
-    padding-bottom: 50px;
+    #calendar form {
+        font-size: 2em;
+        padding-bottom: 50px;
+    }
+
+        #calendar form td{
+            width: 10em;
+        }
+
+#calendarFrame {
+    width: 95%;
+    margin: 0 auto;
 }
 
 #year {
@@ -26,19 +36,39 @@
 
 .months {
     height: 25em;
-    width: 25em;
+    width: 32%;
     float: left;
     background-color: #ddd;
-    margin: 1em 0.5em;
+    margin: 1em .5%;
     border-collapse: collapse;
 }
 
+    .months, .months_w {
+        font-size: 16px;
+    }
+        .months th, .months_w th {
+            padding: 3px;
+        }
+
 .months_w {
+    width: 97%;
     background-color: #ddd;
-    margin: 5em auto;
+    margin: 0 auto;
     border-collapse: collapse;
-    width: 100em;
 }
+
+    .months_w td:nth-child(1) {
+        width: 10em;
+        font-weight: bold;
+    }
+    
+    .months_w td:nth-child(2) {
+        width: 25em;
+    }
+    
+    .months_w tbody {
+        text-transform: uppercase;
+    }
 
 .month_name {
     font-size: 1.5em;
@@ -56,7 +86,6 @@
     height: 2.5em;
     margin-top: 2em;
     color: white;
-    text-transform: uppercase;
 }
 
 .day_name {
@@ -66,8 +95,14 @@
 }
 
 .day_name_horizontal {
-   padding: 0 20px;
+    padding: 0 20px;
 }
+
+.day_names_w_style {
+    text-transform: uppercase;
+    font-size: .6em;
+}
+
 
 .day {
     font-size: 1.3em;
@@ -87,7 +122,7 @@
 }
 
 .day_horizontal {
-    width: 20em;
+    width: 25em;
 
 }
 
@@ -99,12 +134,12 @@
 
     @page {
         size: auto A4 landscape;
-        margin: 7mm 7mm 7mm 7mm;
+        margin: 5mm;
     }
     
     body * {
         visibility: hidden;
-        webkit-print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
     
     .redDay{
@@ -115,23 +150,47 @@
         visibility: visible;
     }
     
+    #calendarFrame {
+        width: 100%;
+    }
+    
     .months_w {
         page-break-before: always;
+        background-color: white; 
     }
+    
+        .months_w td:nth-child(1) {
+            font-size: 12px;
+        }
+        
+        .months_w td:nth-child(2) {
+            width: 25em;
+        }
+        
+
+        .months_w tfoot th{
+            font-weight: normal;
+            font-size: 12px;
+        }
+
     .month_name_w {
-        font-size: 2em;
         padding-top: 30mm;
         background-color: white;
         color: black;
-    }
-    
-    .day_weekend {
-        background-color: grey;
+        font-size: 18px;
+        text-transform: uppercase;
     }
     
     .nums{
-        font-size: 1.2em;
-        height: 5em;
+        height: 4.9em;
+        font-size: .8em;
     }
-
-}
+    
+    .day_weekend {
+        color: black;
+    }
+    
+    .day_names_w_style {
+        font-size: .2em;
+    }
+} /*end of @media print*/

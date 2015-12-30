@@ -1,5 +1,6 @@
     var monthNames = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
     dayNames = ["P", "A", "T", "K", "Pn", "Š", "S"],
+    dayNamesFull = ["Pirmadienis", "Antradienis", "Trečiadienis", "Ketvirtadienis", "Penktadienis", "Šeštadienis", "Sekmadienis"],
     tablecontents,
     holidays_data,
     holidaysArray = [],
@@ -168,7 +169,7 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
   // fill month  
     tablecontents += "<table class='months_w'>";
     tablecontents += "<thead>";
-    tablecontents += "<tr class='month_name_w'><th colspan=7>" + year + " m. " + monthNames[i] + "</th></tr>";
+    tablecontents += "<tr class='month_name_w'><th colspan='7'>" + year + " m. " + monthNames[i] + "</th></tr>";
     tablecontents += "</thead>";
     tablecontents += "<tbody>";
 
@@ -178,9 +179,9 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
       var starting_day = new Date(year, i, 0).getDay();
       var curentDay;
 
-      tablecontents += "<tr class='dayRow_w'>";
-      day_class = dayNum > 4 ? "day_name_horizontal day_name day_weekend" : "day_name";
-      tablecontents += "<td class='" + day_class + "'>"+ dayNames[dayNum] + "</td>";
+      tablecontents += "<tr>";
+      day_class = dayNum > 4 ? "day_name day_weekend" : "day_name";
+      tablecontents += "<td class='" + 'day_names_w_style' + day_class + "'>"+ dayNamesFull[dayNum] + "</td>";
 
       // calendar view / place days (empty rows) through week 
       for (var day = 0; day <= days_in_month[i] + 4; day += 7) {  // +4 for long months > 5 weeks
