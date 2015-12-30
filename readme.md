@@ -6,5 +6,8 @@
 + style hw put holiday description into cell
 + style vw print
 + filled holidays till 2020
+
+- mobile view?
+- Googlecalendar integration?
 - hw menu?
 - optimise and minify
