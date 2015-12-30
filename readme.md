@@ -1,4 +1,4 @@
-+ vertical view (vw)
+Done: + vertical view (vw) 
 + horizontal view (hw)
 + holidays
 + style (vw cal size, hw rows size)
@@ -7,6 +7,7 @@
 + style vw print
 + filled holidays till 2020
 
+Todos:
 - mobile view?
 - Googlecalendar integration?
 - hw menu?
