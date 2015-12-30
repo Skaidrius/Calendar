@@ -5,6 +5,7 @@
     holidays_data,
     holidaysArray = [],
     temp,
+    holDescript,
     day_class ;
 
 function createCalendar(){
@@ -28,9 +29,10 @@ function compare(a,b) {
   return 0;
 }
 
-function checkHolidays(year, monthVal, wday){ // not working yet
+function checkHolidays(year, monthVal, wday){ 
   var dayNum;
   var descript;
+  holDescript = "<div class = 'celldescription'>";
   for (var i = 0; i < holidays_data[0].universal.length; i++){
     // check holidays and color it red
     dayNum = holidays_data[0].universal[i].day;
@@ -44,9 +46,10 @@ function checkHolidays(year, monthVal, wday){ // not working yet
         });
       holidaysArray.sort(compare);
       day_class = "day day_weekend redDay";
+      holDescript += "<p>"+ descript +"</p>"; //inserts holiday description to cell
     }
   }
-  for (var i = 0; i < holidays_data[0].years.length; i++){ //check years
+  for (var i = 0; i < holidays_data[0].years.length; i++){ 
     // check holidays and color it red
     var yearUniq;
     var monthUniq;
@@ -66,9 +69,11 @@ function checkHolidays(year, monthVal, wday){ // not working yet
         });
         holidaysArray.sort(compare);
         day_class = "day day_weekend redDay";
+        holDescript += "<p>"+ descriptionUniq +"</p>"; // inserts holiday description to cell
       }
     }
   }
+  holDescript+="</div>";
 }
 
 function clearHolidays(){
@@ -77,14 +82,14 @@ function clearHolidays(){
 
 function createFooter(monthVal){
   temp = "";
-    temp += "<tfoot>";
-    for (var y = 0; y < holidaysArray.length; y++){ // check holidays description and write it below month
-      if (monthVal == holidaysArray[y].month-1){
-        temp += "<tr><th colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
-      }
+  temp += "<tfoot>";
+  for (var y = 0; y < holidaysArray.length; y++){ // check holidays description and write it below month
+    if (monthVal == holidaysArray[y].month-1){
+      temp += "<tr><th colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
     }
-    temp += "</tfoot>";
   }
+  temp += "</tfoot>";
+}
 
 function createNormalCalendar() {  // vertical view (vw)
     
@@ -191,7 +196,8 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
           day_class = dayNum > 4 ? "day day_weekend day_horizontal redDay" : "day day_horizontal";
           // insert holidays function here
           checkHolidays(year, i, thisDay);
-          curentDay = "<td class='" + day_class + "'><p class='nums'>" + thisDay + "</p></td>";
+          // writeHolidayDescription(year, i, thisDay);
+          curentDay = "<td class='" + day_class + "'><p class='nums'>" + thisDay + "</p>" + holDescript+"</td>";
         } else {
           curentDay = "<td></td>";
         }
@@ -203,9 +209,6 @@ function createWorkCalendar() { //horizontal view (hw) to write day tasks
     
     tablecontents += "</tbody>";
     
-    createFooter(i);
-    tablecontents += temp;  // inserts table footer with holidays
-
     tablecontents += "</table>";
 
   } //end of month cycle

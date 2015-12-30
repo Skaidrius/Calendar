@@ -51,23 +51,20 @@
         }
 
 .months_w {
-    width: 97%;
+    width: 98%;
     background-color: #ddd;
-    margin: 0 auto;
     border-collapse: collapse;
+    margin: 1em 0 2em .5%;
 }
 
     .months_w td:nth-child(1) {
         width: 10em;
         font-weight: bold;
+        text-transform: uppercase;
     }
     
     .months_w td:nth-child(2) {
         width: 25em;
-    }
-    
-    .months_w tbody {
-        text-transform: uppercase;
     }
 
 .month_name {
@@ -84,7 +81,6 @@
     letter-spacing: 0.2em;
     background-color: rgba(0, 20, 110, 0.9);
     height: 2.5em;
-    margin-top: 2em;
     color: white;
 }
 
@@ -107,6 +103,7 @@
 .day {
     font-size: 1.3em;
     border: 1px solid grey;
+    position: relative;
 }
 
 .nums {
@@ -123,11 +120,17 @@
 
 .day_horizontal {
     width: 25em;
-
 }
 
 .redDay{
     box-shadow: inset 0 0 0 1000px #ccc;
+}
+
+.celldescription {
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    font-weight: 0.8em;
 }
 
 @media print {
@@ -141,6 +144,18 @@
         visibility: hidden;
         -webkit-print-color-adjust: exact;
     }
+    
+    .months {
+        height: 20em;
+        width: 15%;
+        font-size: 12px;
+    }
+        .months tfoot {
+            font-size: 10px;
+        }
+        .months .day {
+            border: none;
+        }
     
     .redDay{
         box-shadow: inset 0 0 0 1000px #ccc;
@@ -166,7 +181,6 @@
         .months_w td:nth-child(2) {
             width: 25em;
         }
-        
 
         .months_w tfoot th{
             font-weight: normal;
@@ -192,5 +206,9 @@
     
     .day_names_w_style {
         font-size: .2em;
+    }
+    
+    .celldescription {
+        font-size: 12px;
     }
 } /*end of @media print*/

@@ -1,5 +1,6 @@
 var holidays_data = [{
-    universal: [{
+    /*here are universal holidays*/
+    universal: [{ 
         month: 1,
         day: 1,
         descript: "Naujieji Metai"
@@ -14,7 +15,7 @@ var holidays_data = [{
     }, {
         month: 5,
         day: 1,
-        descript: "Tarptautinė darbininkų diena"
+        descript: "Tarpt. darbininkų diena"
     }, {
         month: 6,
         day: 24,
@@ -44,6 +45,7 @@ var holidays_data = [{
         day: 26,
         descript: "Šv. Kalėdos"
     }],
+    /*here are year specific holidays*/
     years: [{
         year: 2016,
         holidays: [{
@@ -65,6 +67,79 @@ var holidays_data = [{
         }]
     }, {
         year: 2017,
-        holidays: []
+        holidays: [{
+            month: 4,
+            day: 16,
+            descript: "Šv. Velykos"
+        }, {
+            month: 4,
+            day: 17,
+            descript: "Šv. Velykos"
+        }, {
+            month: 5,
+            day: 7,
+            descript: "Motinos diena"
+        }, {
+            month: 6,
+            day: 4,
+            descript: "Tėvo diena"
+        }]
+    }, {
+        year: 2018,
+        holidays: [{
+            month: 4,
+            day: 1,
+            descript: "Šv. Velykos"
+        }, {
+            month: 4,
+            day: 2,
+            descript: "Šv. Velykos"
+        }, {
+            month: 5,
+            day: 6,
+            descript: "Motinos diena"
+        }, {
+            month: 6,
+            day: 3,
+            descript: "Tėvo diena"
+        }]
+    }, {
+        year: 2019,
+        holidays: [{
+            month: 4,
+            day: 21,
+            descript: "Šv. Velykos"
+        }, {
+            month: 4,
+            day: 22,
+            descript: "Šv. Velykos"
+        }, {
+            month: 5,
+            day: 5,
+            descript: "Motinos diena"
+        }, {
+            month: 6,
+            day: 2,
+            descript: "Tėvo diena"
+        }]
+    }, {
+        year: 2020,
+        holidays: [{
+            month: 4,
+            day: 12,
+            descript: "Šv. Velykos"
+        }, {
+            month: 4,
+            day: 13,
+            descript: "Šv. Velykos"
+        }, {
+            month: 5,
+            day: 3,
+            descript: "Motinos diena"
+        }, {
+            month: 6,
+            day: 7,
+            descript: "Tėvo diena"
+        }]
     }]
 }];
