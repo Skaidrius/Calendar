@@ -19,6 +19,14 @@ function checkCalStatus(){
   }
 }
 
+function compare(a,b) {
+  if (a.day < b.day)
+    return -1;
+  if (a.day > b.day)
+    return 1;
+  return 0;
+}
+
 function checkHolidays(year, monthVal, wday){ // not working yet
   var dayNum;
   var descript;
@@ -33,6 +41,7 @@ function checkHolidays(year, monthVal, wday){ // not working yet
           day: wday,
           descript: descript
         });
+      holidaysArray.sort(compare);
       day_class = "day day_weekend redDay";
     }
   }
@@ -54,6 +63,7 @@ function checkHolidays(year, monthVal, wday){ // not working yet
           day: dayUniq,
           descript: descriptionUniq
         });
+        holidaysArray.sort(compare);
         day_class = "day day_weekend redDay";
       }
     }
