@@ -36,4 +36,4 @@ For any comments and suggestions send me a letter to skaidrius@gmail.com
     - header menu with navigation to hw?
     - optimise code and minify
 
-
+//days according LST 1285:2012

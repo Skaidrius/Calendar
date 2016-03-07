@@ -1,5 +1,5 @@
     var monthNames = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
-    dayNames = ["P", "A", "T", "K", "Pn", "Š", "S"],
+    dayNames = ["Pr", "An", "Tr", "Kt", "Pn", "Št", "Sk"],
     dayNamesFull = ["Pirmadienis", "Antradienis", "Trečiadienis", "Ketvirtadienis", "Penktadienis", "Šeštadienis", "Sekmadienis"],
     tablecontents,
     holidays_data,
