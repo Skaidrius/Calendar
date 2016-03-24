@@ -5,30 +5,35 @@
   <meta charset="utf-8">
   <title>Calendar</title>
   <link rel="stylesheet" href="style.css" type="text/css"/>
-  <script type="text/javascript" src="app.js"></script>
-  <script type="text/javascript" src="data.js"></script>
 </head>
 
 <body onload="createCalendar()">
   <div id="calendar">
     
-    <form action="">
-      <input type="radio" name="forma" value="vert" id="vertinput" checked onchange="createNormalCalendar()">Vertikalus
-      <input type="radio" name="forma" value="hor" onchange="createWorkCalendar()">Horizontalus
-    </form>
+    <div class="calHeader">
+      <div class="calHeaderHalve" id="ver" onmousemove="createNormalCalendar()" onclick="createNormalCalendar()"><h2>Vertikalus</h2></div>
+      <div id="year">
+        <div><h2 id='selectedYear'>2016</h2></div>
+        <div id="years">
+          <a href='#' id="2016" onclick = 'year(2016)'>2016</a><br/>
+          <a href='#' id="2017" onclick = 'year(2017)'>2017</a><br/>
+          <a href='#' id="2018" onclick = 'year(2018)'>2018</a><br/>
+          <a href='#' id="2019" onclick = 'year(2019)'>2019</a><br/>
+          <a href='#' id="2020" onclick = 'year(2020)'>2020</a><br/>
+        </div>
+      </div>
+      <div class="calHeaderHalve" id="hor" onmousemove="createWorkCalendar()" onclick="createWorkCalendar()"><h2>Horizontalus</h2></div>
+    </div>
+    
 
-    <select id="year" onchange="checkCalStatus()">
-      <option value="2016">2016</option>
-      <option value="2017">2017</option>
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-    </select>
 
     <div id="calendarFrame">
       <p id="calSpace"></p>
     </div>
   <div>
 </body>
+
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="data.js"></script>
 
 </html>

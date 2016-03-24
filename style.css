@@ -1,8 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Domine);
+
 * {
     margin: 0;
     padding: 0;
-    font-family: "Times New Roman", Georgia, serif;
-    overflow-x: none;
+    font-family: 'Domine', serif;
 }
 
 #calendar {
@@ -10,28 +11,92 @@
     width: 100%;
 }
 
-    #calendar form {
-        font-size: 2em;
-        padding-bottom: 50px;
-    }
-
-        #calendar form td{
-            width: 10em;
-        }
-
 #calendarFrame {
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
 }
 
-#year {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: rgba(0, 15, 100, 0.9);
-    padding: 0.2em;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    border: none;
+#year{
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+#years{
+  display: none;
+  height: 100px;
+  overflow: auto;
+  width: 100%;
+  color: inherit;
+  background-color: lightgrey;
+  z-index: 1;
+}
+
+#years a:hover {
+    background-color: grey;
+}
+
+#year a {
+    text-decoration: none;
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+#year:hover #years {
+    display:block;
+}
+
+#selectedYear {
+    padding: 0; margin: 0;
+}
+
+.calHeader {
+    background-color: white;
+    width: 95%;
+    height: 100px;
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 20px;
+}
+    .calHeader div {
+        display: flex;
+    }
+    .calHeaderHalve {
+        top: 20px;
+        height: 100%;
+        flex: 3 auto;
+        background-color: inherit;
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .calHeaderHalve:hover{
+        cursor: pointer; 
+    }
+    
+        .calHeader  {
+            text-align: right;
+        }
+        .calHeader:first-child {
+            text-align: left;
+        }
+
+    .calHeader:after {
+        clear: both;
+    }
+    
+
+.normalCal {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 .months {
@@ -39,8 +104,8 @@
     width: 32%;
     float: left;
     background-color: #ddd;
-    margin: 1em .5%;
     border-collapse: collapse;
+    margin-bottom: 2em;
 }
 
     .months, .months_w {
@@ -51,10 +116,10 @@
         }
 
 .months_w {
-    width: 98%;
+    width: 95%;
+    margin: 0 auto;
     background-color: #ddd;
     border-collapse: collapse;
-    margin: 1em 0 2em .5%;
 }
 
     .months_w td:nth-child(1) {
@@ -85,8 +150,7 @@
 }
 
 .day_name {
-    font-size: 1.3em;
-    /*padding: 0.3em;*/
+    font-size: 1.2em;
     font-weight: bold;
 }
 
@@ -130,7 +194,14 @@
     position: absolute;
     bottom: 2px;
     right: 5px;
-    font-weight: 0.8em;
+}
+
+.celldescription p {
+    font-size: 0.8em;
+}
+
+.footerDescription {
+    font-size: 0.9em;
 }
 
 @media print {

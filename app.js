@@ -1,4 +1,4 @@
-    var monthNames = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
+var monthNames = ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
     dayNames = ["Pr", "An", "Tr", "Kt", "Pn", "Št", "Sk"],
     dayNamesFull = ["Pirmadienis", "Antradienis", "Trečiadienis", "Ketvirtadienis", "Penktadienis", "Šeštadienis", "Sekmadienis"],
     tablecontents,
@@ -10,6 +10,12 @@
 
 function createCalendar(){
   createNormalCalendar();
+}
+
+var selectedYear = document.getElementById('selectedYear');
+
+function year(number){
+  selectedYear.innerHTML = number;
 }
 
 function checkCalStatus(){
@@ -85,20 +91,27 @@ function createFooter(monthVal){
   temp += "<tfoot>";
   for (var y = 0; y < holidaysArray.length; y++){ // check holidays description and write it below month
     if (monthVal == holidaysArray[y].month-1){
-      temp += "<tr><th colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
+      temp += "<tr><th class='footerDescription' colspan='7'>"+ holidaysArray[y].day + " d. " + holidaysArray[y].descript + "</th></tr>";
     }
   }
   temp += "</tfoot>";
 }
 
 function createNormalCalendar() {  // vertical view (vw)
-    
+  
+    var headerActive = document.getElementById("ver");
+    var headerPassive = document.getElementById("hor");
+    headerActive.style.textDecoration = 'underline';
+    headerPassive.style.textDecoration = 'none';
+  
     clearHolidays();
     tablecontents = "";
+    tablecontents +="<div class = 'normalCal'>";
 
     //  Create and fill calendar
     //   get current year and fill days_in_month array with number of month days that year
-  var year = document.getElementById("year").value;
+  var year = document.getElementById('selectedYear').innerHTML;
+  //var year = document.getElementById("year").value;
   var days_in_month = [];
   
     // create array with month days count
@@ -137,9 +150,10 @@ function createNormalCalendar() {  // vertical view (vw)
           checkHolidays(year, i, day);
           tablecontents +=  "<td class='" + day_class + "'>"+ day + "</td>";
           day++;
-        }
-        else {
-          tablecontents += "<td></td>";
+        } else if (weekNum > 5) {
+          tablecontents += "<td style='height: 1px'></td>";
+        } else {
+          tablecontents += "<td ></td>";
         }
       }
       tablecontents += "</tr>";
@@ -153,18 +167,26 @@ function createNormalCalendar() {  // vertical view (vw)
 
     tablecontents += "</table>";
   } //end of month cycle
+  
+  tablecontents +="</div>";
 
   document.getElementById("calSpace").innerHTML = tablecontents;
 }
 
 function createWorkCalendar() { //horizontal view (hw) to write day tasks
+  
+    var headerActive = document.getElementById("hor");
+    var headerPassive = document.getElementById("ver");
+    headerActive.style.textDecoration = 'underline';
+    headerPassive.style.textDecoration = 'none';
+  
   clearHolidays();
 
   tablecontents = "";
 
     //  Create and fill calendar
     //   get current year and fill days_in_month array with number of month days that year
-  var year = document.getElementById("year").value;
+  var year = document.getElementById("selectedYear").innerHTML;
     // create array with month days count
   var days_in_month = [];
   for (var i = 0; i < 12; i++) {
